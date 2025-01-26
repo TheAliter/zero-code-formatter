@@ -47,6 +47,7 @@ function printClosingTagEnd(node, options) {
   )
     ? ""
     : [
+        node.isSelfClosing && node.attrs.length > 1 && node.type === 'element' ? line : "",
         printClosingTagEndMarker(node, options),
         printClosingTagSuffix(node, options),
       ];

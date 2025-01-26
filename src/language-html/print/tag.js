@@ -319,6 +319,7 @@ function printOpeningTag(path, options, print) {
     printOpeningTagStart(node, options),
     printAttributes(path, options, print),
     node.isSelfClosing ? "" : printOpeningTagEnd(node),
+    !node.isSelfClosing && node.attrs.length > 1 ? line : "",
   ];
 }
 

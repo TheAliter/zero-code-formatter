@@ -161,18 +161,23 @@ function printChildren(path, options, print) {
   const groupIds = node.children.map(() => Symbol(""));
   return path.map((childPath, childIndex) => {
     const childNode = childPath.node;
-
+    
     if (isTextLikeNode(childNode)) {
-      if (childNode.prev && isTextLikeNode(childNode.prev)) {
-        const prevBetweenLine = printBetweenLine(childNode.prev, childNode);
-        if (prevBetweenLine) {
-          if (forceNextEmptyLine(childNode.prev)) {
-            return [hardline, hardline, printChild(childPath, options, print)];
-          }
-          return [prevBetweenLine, printChild(childPath, options, print)];
+        if (childNode.prev && isTextLikeNode(childNode.prev)) {
+            const prevBetweenLine = printBetweenLine(childNode.prev, childNode);
+            if (prevBetweenLine) {
+                if (forceNextEmptyLine(childNode.prev)) {
+                    return [hardline, hardline, printChild(childPath, options, print)];
+                }
+                return [prevBetweenLine, printChild(childPath, options, print)];
+            }
         }
-      }
-      return printChild(childPath, options, print);
+        
+        if (childNode.prev && childNode.type === "comment") {
+            return [hardline, printChild(childPath, options, print)];
+        }
+
+        return printChild(childPath, options, print);
     }
 
     const prevParts = [];
@@ -192,7 +197,7 @@ function printChildren(path, options, print) {
       if (forceNextEmptyLine(childNode.prev)) {
         prevParts.push(hardline, hardline);
       } else if (prevBetweenLine === hardline) {
-        prevParts.push(hardline, hardline);
+        prevParts.push(hardline);
       } else if (isTextLikeNode(childNode.prev)) {
         leadingParts.push(prevBetweenLine);
       } else {

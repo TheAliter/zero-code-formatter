@@ -212,7 +212,9 @@ function printChildren(path, options, print) {
         }
       } else if (nextBetweenLine === hardline) {
         if (isTextLikeNode(childNode.next)) {
-          nextParts.push(hardline, hardline);
+            nextParts.push(hardline, hardline);
+        } else {
+            nextParts.push(hardline);
         }
       } else {
         trailingParts.push(nextBetweenLine);

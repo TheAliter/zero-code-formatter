@@ -173,10 +173,6 @@ function printChildren(path, options, print) {
             }
         }
         
-        if (childNode.prev && childNode.type === "comment") {
-            return [hardline, printChild(childPath, options, print)];
-        }
-
         return printChild(childPath, options, print);
     }
 
@@ -216,7 +212,7 @@ function printChildren(path, options, print) {
         }
       } else if (nextBetweenLine === hardline) {
         if (isTextLikeNode(childNode.next)) {
-          nextParts.push(hardline);
+          nextParts.push(hardline, hardline);
         }
       } else {
         trailingParts.push(nextBetweenLine);

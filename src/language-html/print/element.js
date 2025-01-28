@@ -93,19 +93,25 @@ function printElement(path, options, print) {
   };
 
   const printLineBeforeChildren = () => {
-    if (node.attrs.length === 1 && node.attrs[0].value.includes("\n")) {
+    if (node.firstChild && node.attrs.length === 1 && node.attrs[0].value && node.attrs[0].value.includes("\n")) {
         return [hardline, hardline];
+    }
+
+    if (node.firstChild && node.firstChild.type === "interpolation") {
+        return hardline;
     }
 
     if (shouldHugContent) {
       return ifBreak(softline, "", { groupId: attrGroupId });
     }
+
     if (
       node.firstChild.hasLeadingSpaces &&
       node.firstChild.isLeadingSpaceSensitive
     ) {
-      return line;
+        return line;
     }
+
     if (
       node.firstChild.type === "text" &&
       node.isWhitespaceSensitive &&
@@ -113,6 +119,7 @@ function printElement(path, options, print) {
     ) {
       return dedentToRoot(softline);
     }
+    
     return softline;
   };
 

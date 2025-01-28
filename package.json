@@ -1,6 +1,6 @@
 {
-  "name": "zero-smile",
-  "version": "0.0.2",
+  "name": "zero-code-formatter",
+  "version": "0.0.1",
   "description": "Adjusted Prettier code formatter",
   "bin": "./bin/prettier.cjs",
   "author": "Andris Paskovskis",

@@ -2,6 +2,7 @@ import {
   breakParent,
   dedentToRoot,
   group,
+  hardline,
   ifBreak,
   indent,
   indentIfBreak,
@@ -92,6 +93,10 @@ function printElement(path, options, print) {
   };
 
   const printLineBeforeChildren = () => {
+    if (node.attrs.length === 1 && node.attrs[0].value.includes("\n")) {
+        return [hardline, hardline];
+    }
+
     if (shouldHugContent) {
       return ifBreak(softline, "", { groupId: attrGroupId });
     }

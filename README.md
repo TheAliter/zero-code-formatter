@@ -1,30 +1,30 @@
 
-<h2 align="center">Adjusted Prettier Opinionated Code Formatter</h2>
+## Adjusted Prettier Opinionated Code Formatter
 
-<p align="center">See original prettier source code (v3.4.2) - https://github.com/prettier/prettier</p>
+See original prettier source code (v3.4.2) - https://github.com/prettier/prettier
 
-<h4>PRETTIER CONFIG</h4>
-```javascript
-    {
-        "tabWidth": 4,
-        "printWidth": 120,
-        "semi": false,
-        "singleQuote": true,
-        "quoteProps": "consistent",
-        "bracketSameLine": true,
-        "htmlWhitespaceSensitivity": "ignore",
-        "vueIndentScriptAndStyle": true,
-        "singleAttributePerLine": true
-    }
+#### PRETTIER CONFIG
+```json
+{
+    "tabWidth": 4,
+    "printWidth": 120,
+    "semi": false,
+    "singleQuote": true,
+    "quoteProps": "consistent",
+    "bracketSameLine": true,
+    "htmlWhitespaceSensitivity": "ignore",
+    "vueIndentScriptAndStyle": true,
+    "singleAttributePerLine": true
+}
 ```
 
-<h4>HOW TO FORMAT A FILE</h4>
-<p>Run formatter from CLI with following command:</p>
-```bash
+#### HOW TO FORMAT A FILE
+Run formatter from CLI with following command:
+```sh
 npx zero-code-formatter --write [pathToFile]
 ```
 
-<h4>GIT POST-COMMIT HOOK</h4>
+#### GIT POST-COMMIT HOOK
 ```sh
 #!/bin/bash
 

@@ -14,6 +14,7 @@ import {
   forceBreakChildren,
   forceNextEmptyLine,
   hasPrettierIgnore,
+  isVueScriptTag,
   isTextLikeNode,
   preferHardlineAsLeadingSpaces,
 } from "../utils/index.js";
@@ -45,7 +46,7 @@ function getEndLocation(node) {
 function printChild(childPath, options, print) {
   const child = childPath.node;
 
-  if (hasPrettierIgnore(child)) {
+  if (hasPrettierIgnore(child) || isVueScriptTag(child, options)) {
     const endLocation = getEndLocation(child);
 
     return [

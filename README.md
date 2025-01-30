@@ -52,12 +52,15 @@ echo "$LAST_COMMIT_FILES"
 
 # Run Prettier on each changed Vue file
 for file in $LAST_COMMIT_FILES; do
-    npx zero-code-formatter --write --ignore-unknown "$file"
+    # Perform formatting twice because attributes are formatted after children, thus children might not have empty line before parent opening tag end
+    for i in {1..2}; do
+        npx zero-code-formatter --write --ignore-unknown "$file"
 
-    if [[ $? -ne 0 ]]; then
-        echo "Prettier failed to format $file. Aborting commit."
-        exit 1
-    fi
+        if [[ $? -ne 0 ]]; then
+            echo "Prettier failed to format $file. Aborting commit."
+            exit 1
+        fi
+    done
 done
 
 # Check if Prettier made changes

@@ -218,7 +218,6 @@ function needsToBorrowParentOpeningTagEndMarker(node) {
 
 function printAttributes(path, options, print) {
   const { node } = path;
-  const ignoredAttributes = new Set([":class"]);
 
   if (!isNonEmptyArray(node.attrs)) {
     return node.isSelfClosing
@@ -241,9 +240,17 @@ function printAttributes(path, options, print) {
         ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
         : () => false;
 
+  const isMultilineDirective = (attribute) => {
+    if (attribute.name.startsWith(":") && attribute.value.includes("\n")) {
+      return true;
+    }
+
+    return false
+  }
+
   const printedAttributes = path.map(
     ({ node: attribute }) =>
-        hasPrettierIgnoreAttribute(attribute) || ignoredAttributes.has(attribute.name)
+        hasPrettierIgnoreAttribute(attribute) || isMultilineDirective(attribute)
           ? replaceEndOfLine(
               options.originalText.slice(locStart(attribute), locEnd(attribute)),
             )

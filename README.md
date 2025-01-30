@@ -3,6 +3,10 @@
 
 See original prettier source code (v3.4.2) - https://github.com/prettier/prettier
 
+> ---
+> ### This package provides only formatting for Vue files template section! 
+> ---
+
 #### PRETTIER CONFIG
 ```json
 {
@@ -16,6 +20,12 @@ See original prettier source code (v3.4.2) - https://github.com/prettier/prettie
     "vueIndentScriptAndStyle": true,
     "singleAttributePerLine": true
 }
+```
+
+#### INSTALLATION
+Install package as dev dependency
+```sh
+npm install -D zero-code-formatter
 ```
 
 #### HOW TO FORMAT A FILE

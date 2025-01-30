@@ -218,6 +218,7 @@ function needsToBorrowParentOpeningTagEndMarker(node) {
 
 function printAttributes(path, options, print) {
   const { node } = path;
+  const ignoredAttributes = new Set([":class"]);
 
   if (!isNonEmptyArray(node.attrs)) {
     return node.isSelfClosing
@@ -242,20 +243,20 @@ function printAttributes(path, options, print) {
 
   const printedAttributes = path.map(
     ({ node: attribute }) =>
-      hasPrettierIgnoreAttribute(attribute)
-        ? replaceEndOfLine(
-            options.originalText.slice(locStart(attribute), locEnd(attribute)),
-          )
-        : print(),
+        hasPrettierIgnoreAttribute(attribute) || ignoredAttributes.has(attribute.name)
+          ? replaceEndOfLine(
+              options.originalText.slice(locStart(attribute), locEnd(attribute)),
+            )
+          : print(),
     "attrs",
   );
 
   const forceNotToBreakAttrContent =
-    node.type === "element" &&
+    (node.type === "element" &&
     node.fullName === "script" &&
     node.attrs.length === 1 &&
     node.attrs[0].fullName === "src" &&
-    node.children.length === 0;
+    node.children.length === 0) || node.attrs.length === 1;
 
   const shouldPrintAttributePerLine =
     options.singleAttributePerLine &&
